@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+.mypy_cache/
+migrations/
+db.sqlite3
+
+django_key
