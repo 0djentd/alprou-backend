@@ -17,7 +17,7 @@ class HabitTemplate(models.Model):
     description = models.TextField(max_length=200, blank=True, null=False)
     negative = models.BooleanField(default=False, blank=False, null=False)
 
-    def create_new(self, user):
+    def new_habit(self, user):
         return Habit(user=user, name=self.name, description=self.description, negative=self.negative)
 
 
@@ -36,3 +36,5 @@ class Profile(models.Model):
     public_friends = models.BooleanField(default=True)
     public_habits = models.BooleanField(default=True)
     public_habit_templates = models.BooleanField(default=True)
+
+MODELS = [Habit, HabitTemplate, Profile]
