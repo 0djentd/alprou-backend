@@ -23,7 +23,7 @@ class HabitTemplate(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, related_name="profile", on_delete=models.CASCADE, auto_created=True)
-    friends = models.ManyToManyField(User, related_name="followers", blank=True)
+    # friends = models.ManyToManyField(User, related_name="followers", blank=True)
     favorite_habits = models.ManyToManyField(Habit, related_name="favorites", blank=True)
     favorite_habit_templates = models.ManyToManyField(HabitTemplate, related_name="favorites", blank=True)
     
