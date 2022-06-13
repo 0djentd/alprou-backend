@@ -23,16 +23,16 @@ class HabitTemplate(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, related_name="profile", on_delete=models.CASCADE, auto_created=True)
-    # friends = models.ManyToManyField(User, related_name="followers", blank=True)
-    favorite_habits = models.ManyToManyField(Habit, related_name="favorites", blank=True)
-    favorite_habit_templates = models.ManyToManyField(HabitTemplate, related_name="favorites", blank=True)
-    
-    public_name = models.CharField(max_length=200, blank=True, null=True)
-    birthday = models.DateField(blank=True, null=True)
+    # # friends = models.ManyToManyField(User, related_name="followers", blank=True)
+    # favorite_habits = models.ManyToManyField(Habit, related_name="favorites", blank=True)
+    # favorite_habit_templates = models.ManyToManyField(HabitTemplate, related_name="favorites", blank=True)
+    # 
+    # public_name = models.CharField(max_length=200, blank=True, null=True)
+    # birthday = models.DateField(blank=True, null=True)
 
-    # SETTINGS
-    private_profile = models.BooleanField(default=False)
-    public_favorites = models.BooleanField(default=True)
-    public_friends = models.BooleanField(default=True)
-    public_habits = models.BooleanField(default=True)
-    public_habit_templates = models.BooleanField(default=True)
+    # # SETTINGS
+    # private_profile = models.BooleanField(default=False)
+    # public_favorites = models.BooleanField(default=True)
+    # public_friends = models.BooleanField(default=True)
+    # public_habits = models.BooleanField(default=True)
+    # public_habit_templates = models.BooleanField(default=True)
