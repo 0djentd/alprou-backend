@@ -4,7 +4,8 @@ import rest_framework
 from . import views
 
 urlpatterns = [
-        path("profiles/", views.ProfilesListAPIView.as_view()),
+        path("profiles/", views.ProfilesListCreateAPIView.as_view()),
+        path("profiles/<int:pk>", views.ProfileDetailsAPIView.as_view()),
         # path("profiles/<int:pk>/", views.ProfileDetailsAPIView.as_view()),
         path("", include("rest_framework.urls")),
         path("authtoken/", obtain_auth_token),

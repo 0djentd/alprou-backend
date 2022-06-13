@@ -1,12 +1,13 @@
-from django.shortcuts import render
-from rest_framework import generics, views, decorators, authentication
-from django.contrib.auth.models import User
+from rest_framework import generics
+from rest_framework.permissions import IsAdminUser
+
+from core.models import Profile
+
 from . import serializers
+from . mixins import IsObjectAuthorPermission
 
-class UsersAPIView(generics.ListAPIView):
-    queryset = User.objects.all()
-    serializer_class = serializers.UserSerializer
 
-class ProfilesListAPIView(generics.ListAPIView):
-    queryset = User.objects.all()
+class ProfilesListAPIView(IsObjectAuthorPermission, generics.ListAPIView):
+    queryset = Profile.objects.all()
     serializer_class = serializers.ProfileSerializer
+    permission_classes = [IsObjectAuthorPermission, IsAdminUser]
