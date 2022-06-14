@@ -3,13 +3,13 @@ from django.contrib.auth.models import User
 from core.models import Profile, Habit
 
 
-class ProfileSerializer(serializers.ModelSerializer):
+class ProfileSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Profile
         exclude = []
 
 
-class HabitSerializer(serializers.ModelSerializer):
+class HabitSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Habit
         exclude = []
