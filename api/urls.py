@@ -8,7 +8,6 @@ urlpatterns = [
         path("profiles/<int:pk>", views.ProfileDetailsAPIView.as_view(), name='profile-list'),
         path("habits/", views.HabitsListCreateAPIView.as_view(), name='habits-list'),
         path("habits/<int:pk>", views.HabitDetailsAPIView.as_view(), name='habit-detail'),
-        # path("profiles/<int:pk>/", views.ProfileDetailsAPIView.as_view()),
         path("", include("rest_framework.urls")),
         path("authtoken/", obtain_auth_token),
             ]

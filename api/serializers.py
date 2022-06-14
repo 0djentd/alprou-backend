@@ -6,10 +6,10 @@ from core.models import Profile, Habit
 class ProfileSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Profile
-        exclude = []
+        exclude = ['user']
 
 
 class HabitSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Habit
-        exclude = []
+        exclude = ['user']

@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Habit(models.Model):
-    profile = models.ForeignKey(Profile, related_name="habits", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name="habits", on_delete=models.CASCADE)
 
     name = models.CharField(max_length=200, blank=False, null=False)
     description = models.TextField(max_length=2000, blank=True, null=False)
