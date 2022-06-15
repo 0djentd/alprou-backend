@@ -66,5 +66,5 @@ class Profile(models.Model):
                                 on_delete=models.CASCADE,
                                 auto_created=True)
     public_username = models.CharField(verbose_name="Public username", max_length=100, null=True, blank=False)
-    profile_image = models.ImageField(null=True)
-    background_image = models.ImageField(null=True)
+    profile_image = models.ImageField(null=True, blank=True)
+    background_image = models.ImageField(null=True, blank=True)
