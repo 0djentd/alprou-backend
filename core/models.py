@@ -1,4 +1,5 @@
 import time
+import datetime
 import logging
 
 from django.db import models
@@ -18,6 +19,7 @@ class Habit(models.Model):
     description = models.TextField(max_length=2000, blank=True, null=False)
     negative = models.BooleanField(default=False, blank=False, null=False)
     active = models.BooleanField(default=True, blank=False, null=False)
+    public = models.BooleanField(default=False, blank=False, null=False)
 
     # Days when habit was completed
     # completed: list[Day]
@@ -25,14 +27,25 @@ class Habit(models.Model):
     def complete(self) -> bool:
         """Check habit as completed today.
 
-        TODO:
         Returns False, if already completed today.
         """
-        logger.debug(f"Checking {self} as complete.")
         day = Day(user=self.user, habit=self)
-        day.save()
+        if len(self.completed) == 0:
+            day.save()
+            result = True
+        else:
+            timedelta = datetime.datetime.now() - self.completed[-1].datetime
+            if timedelta.days < 1:
+                if timedelta.days < 0:
+                    raise ValueError
+                result = False
+            else:
+                day.save()
+                result = True
+        logger.debug(f"Checking {self} as complete.")
         logger.debug(f"day: {day}")
-        return True
+        logger.debug(result)
+        return result
 
 
 class Day(models.Model):
@@ -52,3 +65,6 @@ class Profile(models.Model):
                                 related_name="profile",
                                 on_delete=models.CASCADE,
                                 auto_created=True)
+    public_username = models.CharField(verbose_name="Public username", max_length=100, null=True, blank=False)
+    profile_image = models.ImageField(null=True)
+    background_image = models.ImageField(null=True)
