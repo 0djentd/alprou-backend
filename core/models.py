@@ -65,6 +65,7 @@ class Profile(models.Model):
                                 related_name="profile",
                                 on_delete=models.CASCADE,
                                 auto_created=True)
+    public = models.BooleanField(default=False, blank=False, null=False)
     public_username = models.CharField(verbose_name="Public username", max_length=100, null=True, blank=False)
     profile_image = models.ImageField(null=True, blank=True)
     background_image = models.ImageField(null=True, blank=True)

@@ -27,3 +27,8 @@ class IsObjectAuthorPermission(permissions.DjangoObjectPermissions):
             result = False
         logger.debug(result)
         return result
+
+
+class IsObjectPublic(permissions.DjangoObjectPermissions):
+    def has_object_permission(self, req, view, obj):
+        return bool(obj.public)
