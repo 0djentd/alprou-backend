@@ -1,3 +1,5 @@
+import logging
+
 from rest_framework import generics, mixins
 from rest_framework.permissions import IsAdminUser
 
@@ -5,6 +7,10 @@ from core.models import Profile, Habit
 
 from . import serializers
 from . mixins import IsObjectAuthorPermission
+
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 
 class ProfilesListCreateAPIView(generics.ListCreateAPIView):

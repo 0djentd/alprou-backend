@@ -1,5 +1,11 @@
+import logging
+
 from rest_framework import permissions, authentication
 from .permissions import IsObjectAuthorPermission
+
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 
 class ObjectPermissionsMixin():

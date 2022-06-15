@@ -12,12 +12,18 @@ class IsObjectAuthorPermission(permissions.DjangoObjectPermissions):
         logger.debug(req.user)
         logger.debug(req.user.is_staff)
         if req.user.is_staff:
-            return True
-        return False
+            result = True
+        else:
+            result = False
+        logger.debug(result)
+        return result
 
     def has_object_permission(self, req, view, obj):
         logger.debug(req.user)
         logger.debug(obj.user)
         if req.user.id == obj.user.id:
-            return True
-        return False
+            result = True
+        else:
+            result = False
+        logger.debug(result)
+        return result
