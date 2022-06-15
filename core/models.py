@@ -1,5 +1,11 @@
+import time
+import logging
+
 from django.db import models
 from django.contrib.auth.models import User
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 
 class Habit(models.Model):
@@ -16,11 +22,17 @@ class Habit(models.Model):
     # Days when habit was completed
     # completed: list[Day]
 
-    def complete(self):
-        """Check habit as completed today."""
+    def complete(self) -> bool:
+        """Check habit as completed today.
+
+        TODO:
+        Returns False, if already completed today.
+        """
+        logger.debug(f"Checking {self} as complete.")
         day = Day(user=self.user, habit=self)
         day.save()
-        return
+        logger.debug(f"day: {day}")
+        return True
 
 
 class Day(models.Model):
