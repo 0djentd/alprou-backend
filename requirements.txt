@@ -4,3 +4,4 @@ django-cors-headers
 django-model-utils
 django-simple-history
 django-taggit
+pillow
