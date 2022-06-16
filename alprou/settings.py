@@ -138,6 +138,8 @@ CORS_ORIGIN_WHITELIST = (
 
 # DRF
 REST_FRAMEWORK = {
+    'DEFAULT_VERSIONING_CLASS':
+        'rest_framework.versioning.NamespaceVersioning',
     'DEFAULT_THROTTLE_CLASSES': [
         'rest_framework.throttling.AnonRateThrottle',
         'rest_framework.throttling.UserRateThrottle',
