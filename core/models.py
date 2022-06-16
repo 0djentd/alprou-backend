@@ -4,6 +4,7 @@ import logging
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.query import QuerySet
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -69,3 +70,13 @@ class Profile(models.Model):
     public_username = models.CharField(verbose_name="Public username", max_length=100, null=True, blank=False)
     profile_image = models.ImageField(null=True, blank=True)
     background_image = models.ImageField(null=True, blank=True)
+
+    @property
+    def active_habits(self) -> QuerySet:
+        active_habits =  self.user.habits.all().filter(active=True)
+        return active_habits
+
+    @property
+    def habits(self) -> QuerySet:
+        active_habits =  self.user.habits.all()
+        return active_habits
