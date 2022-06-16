@@ -2,6 +2,8 @@ import time
 import datetime
 import logging
 
+from simple_history.models import HistoricalRecords
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.query import QuerySet
@@ -23,6 +25,7 @@ class Habit(TimeStampedModel, models.Model):
     negative = models.BooleanField(default=False, blank=False, null=False)
     active = models.BooleanField(default=True, blank=False, null=False)
     public = models.BooleanField(default=False, blank=False, null=False)
+    history = HistoricalRecords()
 
     # Days when habit was completed
     # completed: list[Day]
@@ -61,6 +64,7 @@ class Day(models.Model):
                               on_delete=models.CASCADE)
     datetime = models.DateTimeField(auto_now_add=True)
     public = models.BooleanField(default=False, blank=False, null=False)
+    history = HistoricalRecords()
 
 
 class Profile(TimeStampedModel, models.Model):
@@ -73,6 +77,7 @@ class Profile(TimeStampedModel, models.Model):
     public_username = models.CharField(verbose_name="Public username", max_length=100, null=True, blank=False)
     profile_image = models.ImageField(null=True, blank=True)
     background_image = models.ImageField(null=True, blank=True)
+    history = HistoricalRecords()
 
     @property
     def active_habits(self) -> QuerySet:
