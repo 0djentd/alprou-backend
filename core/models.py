@@ -6,11 +6,13 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.query import QuerySet
 
+from model_utils.models import TimeStampedModel
+
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
 
-class Habit(models.Model):
+class Habit(TimeStampedModel, models.Model):
     """Object representing a habit."""
     user = models.ForeignKey(User,
                              related_name="habits",
@@ -61,7 +63,7 @@ class Day(models.Model):
     public = models.BooleanField(default=False, blank=False, null=False)
 
 
-class Profile(models.Model):
+class Profile(TimeStampedModel, models.Model):
     """User's profile."""
     user = models.OneToOneField(User,
                                 related_name="profile",
