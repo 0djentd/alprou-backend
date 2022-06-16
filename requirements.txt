@@ -6,3 +6,4 @@ django-simple-history
 django-taggit
 drf-yasg
 pillow
+pyyaml
