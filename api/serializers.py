@@ -12,7 +12,8 @@ class ProfileSerializer(serializers.HyperlinkedModelSerializer):
 class HabitSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Habit
-        exclude = []
+        fields = ["id", "url", "name", "description", "user",
+                  "active", "negative", "public", "completed"]
 
 
 class DaySerializer(serializers.HyperlinkedModelSerializer):
