@@ -3,7 +3,7 @@ import logging
 from django.db.models import Model
 from django.db.models.query import QuerySet
 from rest_framework import authentication
-from . permissions import IsObjectPublic, IsObjectAuthorPermission
+from . permissions import IsObjectPublic, IsObjectAuthor
 
 
 logger = logging.getLogger(__name__)
@@ -14,7 +14,7 @@ class VisibleObjectsMixin():
     model: Model
     authentication_classes = [
         authentication.TokenAuthentication, authentication.SessionAuthentication]
-    permission_classes = [IsObjectPublic | IsObjectAuthorPermission]
+    permission_classes = [IsObjectPublic | IsObjectAuthor]
 
     def get_queryset(self) -> QuerySet:
         q_1 = self.model.objects.all().filter(public=True)

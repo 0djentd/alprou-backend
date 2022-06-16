@@ -24,7 +24,7 @@ class _log_mixin():
         logger.debug(f"result: {result}")
 
 
-class IsObjectAuthorPermission(_log_mixin, permissions.BasePermission):
+class IsObjectAuthor(_log_mixin, permissions.BasePermission):
     """Object author can modify it."""
 
     def has_object_permission(self, req, view, obj):
@@ -43,5 +43,13 @@ class IsObjectPublic(_log_mixin, permissions.BasePermission):
         if obj.user.id != req.user.id and obj.public:
             if req.method in permissions.SAFE_METHODS:
                 result = True
+        self.log_check(result, req, view, obj)
+        return result
+
+class IsSameIdAsUser(_log_mixin, permissions.BasePermission):
+    def has_object_permission(self, req, view, obj):
+        result = False
+        if obj.id == req.user.id:
+            result = True
         self.log_check(result, req, view, obj)
         return result

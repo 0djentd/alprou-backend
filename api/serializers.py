@@ -6,10 +6,17 @@ from core.models import Profile, Habit
 class ProfileSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Profile
-        exclude = ['user']
+        exclude = []
 
 
 class HabitSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Habit
-        exclude = ['user']
+        exclude = []
+
+
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+        fields = ['url', 'id', 'habits']
+        read_only_fields = ['habits']
