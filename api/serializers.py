@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
+from taggit.serializers import TagListSerializerField, TaggitSerializer
 from core.models import Profile, Habit, Day
 
 
@@ -10,11 +11,13 @@ class ProfileSerializer(serializers.HyperlinkedModelSerializer):
         read_only_fields = ["id", "url", "created", "modified", "user"]
 
 
-class HabitSerializer(serializers.HyperlinkedModelSerializer):
+class HabitSerializer(TaggitSerializer, serializers.HyperlinkedModelSerializer):
+    tags = TagListSerializerField()
+
     class Meta:
         model = Habit
         fields = ["id", "url", "created", "modified", "name", "description", "user",
-                  "active", "negative", "public", "completed"]
+                  "active", "negative", "public", "completed", "tags"]
         read_only_fields = ["id", "url", "created", "modified", "user", "completed"]
 
 

@@ -2,6 +2,7 @@ import time
 import datetime
 import logging
 
+from taggit.managers import TaggableManager
 from simple_history.models import HistoricalRecords
 
 from django.db import models
@@ -26,6 +27,7 @@ class Habit(TimeStampedModel, models.Model):
     active = models.BooleanField(default=True, blank=False, null=False)
     public = models.BooleanField(default=False, blank=False, null=False)
     history = HistoricalRecords()
+    tags = TaggableManager()
 
     # Days when habit was completed
     # completed: list[Day]
