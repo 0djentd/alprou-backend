@@ -28,7 +28,7 @@ class HabitsViewset(VisibleObjectsMixin, viewsets.ModelViewSet):
 
 class UsersViewset(viewsets.ModelViewSet):
     serializer_class = serializers.UserSerializer
-    permission_classes = [IsSameIdAsUser]
+    permission_classes = [IsAuthenticated & IsSameIdAsUser]
 
     def get_queryset(self) -> QuerySet:
         queryset = User.objects.all().filter(id=self.request.user.id)
