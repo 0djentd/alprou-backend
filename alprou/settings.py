@@ -159,3 +159,6 @@ REST_FRAMEWORK = {
         'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 50,
 }
+
+# django-taggit
+TAGGIT_CASE_INSENSITIVE = True
