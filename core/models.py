@@ -58,6 +58,7 @@ class Day(models.Model):
                               related_name="completed",
                               on_delete=models.CASCADE)
     datetime = models.DateTimeField(auto_now_add=True)
+    public = models.BooleanField(default=False, blank=False, null=False)
 
 
 class Profile(models.Model):

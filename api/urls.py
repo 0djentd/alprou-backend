@@ -4,9 +4,10 @@ from rest_framework.routers import SimpleRouter
 from . import views
 
 router = SimpleRouter()
+router.register('users', views.UsersViewset, 'user')
 router.register('profiles', views.ProfilesViewset, 'profile')
 router.register('habits', views.HabitsViewset, 'habit')
-router.register('users', views.UsersViewset, 'user')
+router.register('days', views.DaysViewset, 'day')
 
 urlpatterns = [
         path("", include(router.urls)),

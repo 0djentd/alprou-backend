@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from core.models import Profile, Habit
+from core.models import Profile, Habit, Day
 
 
 class ProfileSerializer(serializers.HyperlinkedModelSerializer):
@@ -12,6 +12,12 @@ class ProfileSerializer(serializers.HyperlinkedModelSerializer):
 class HabitSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Habit
+        exclude = []
+
+
+class DaySerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Day
         exclude = []
 
 

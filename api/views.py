@@ -5,7 +5,7 @@ from django.db.models.query import QuerySet
 from rest_framework import viewsets
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 
-from core.models import Profile, Habit
+from core.models import Profile, Habit, Day
 
 from . import serializers
 from . mixins import VisibleObjectsMixin
@@ -24,6 +24,11 @@ class ProfilesViewset(VisibleObjectsMixin, viewsets.ModelViewSet):
 class HabitsViewset(VisibleObjectsMixin, viewsets.ModelViewSet):
     model = Habit
     serializer_class = serializers.HabitSerializer
+
+
+class DaysViewset(VisibleObjectsMixin, viewsets.ModelViewSet):
+    model = Day
+    serializer_class = serializers.DaySerializer
 
 
 class UsersViewset(viewsets.ModelViewSet):
