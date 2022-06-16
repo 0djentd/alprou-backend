@@ -6,16 +6,16 @@ from core.models import Profile, Habit, Day
 class ProfileSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Profile
-        fields = ["id", "url", "user", "public", "public_username", "profile_image", "background_image"]
-        read_only_fields = ["id", "url", "user"]
+        fields = ["id", "url", "user", "created", "modified", "public", "public_username", "profile_image", "background_image"]
+        read_only_fields = ["id", "url", "created", "modified", "user"]
 
 
 class HabitSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Habit
-        fields = ["id", "url", "name", "description", "user",
+        fields = ["id", "url", "created", "modified", "name", "description", "user",
                   "active", "negative", "public", "completed"]
-        read_only_fields = ["id", "url", "user", "completed"]
+        read_only_fields = ["id", "url", "created", "modified", "user", "completed"]
 
 
 class DaySerializer(serializers.HyperlinkedModelSerializer):
