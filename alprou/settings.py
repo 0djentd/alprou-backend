@@ -41,11 +41,13 @@ INSTALLED_APPS = [
 
     'api',
     'core',
+    'docs',
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
     'simple_history',
     'taggit',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [

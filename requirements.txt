@@ -4,4 +4,5 @@ django-cors-headers
 django-model-utils
 django-simple-history
 django-taggit
+drf-yasg
 pillow
