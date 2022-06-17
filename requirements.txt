@@ -4,6 +4,7 @@ django-cors-headers
 django-model-utils
 django-simple-history
 django-taggit
+django-axes
 drf-yasg
 pillow
 pyyaml

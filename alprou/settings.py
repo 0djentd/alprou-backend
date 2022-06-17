@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 
+from django.conf.global_settings import AUTHENTICATION_BACKENDS
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -48,6 +50,7 @@ INSTALLED_APPS = [
     'simple_history',
     'taggit',
     'drf_yasg',
+    'axes',
 ]
 
 MIDDLEWARE = [
@@ -59,6 +62,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'axes.middleware.AxesMiddleware',
     'simple_history.middleware.HistoryRequestMiddleware'
 ]
 
@@ -112,6 +116,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = ['axes.backends.AxesBackend'] + AUTHENTICATION_BACKENDS
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
@@ -164,3 +170,7 @@ REST_FRAMEWORK = {
 
 # django-taggit
 TAGGIT_CASE_INSENSITIVE = True
+
+# django-axes
+# SILENCED_SYSTEM_CHECKS = ['axes.W002']
+AXES_FAILURE_LIMIT = 20
