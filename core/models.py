@@ -38,14 +38,13 @@ class Habit(TimeStampedModel, models.Model):
         Returns False, if already completed today.
         """
         day = Day(user=self.user, habit=self)
-        if len(self.completed.all()) == 0:
+        completed_count = len(self.completed.all())
+        if completed_count == 0:
             day.save()
             result = True
         else:
-            timedelta = datetime.datetime.now() - self.completed[-1].datetime
+            timedelta = self._get_timedelta()
             if timedelta.days < 1:
-                if timedelta.days < 0:
-                    raise ValueError
                 result = False
             else:
                 day.save()
@@ -54,6 +53,26 @@ class Habit(TimeStampedModel, models.Model):
         logger.debug(f"day: {day}")
         logger.debug(result)
         return result
+
+    @property
+    def completed_today(self) -> bool:
+        completed_count = len(self.completed.all())
+        if completed_count == 0:
+            result = False
+        else:
+            timedelta = self._get_timedelta()
+            result = timedelta.days > 0
+        return result
+
+    def _get_timedelta(self):
+        completed_count = len(self.completed.all())
+        last = self.completed.all()[completed_count-1].datetime
+        now = datetime.datetime.now(datetime.timezone.utc)
+        timedelta = now - last
+        logger.debug(f"{last} - {now} = {timedelta}")
+        if timedelta < timedelta - timedelta:
+            raise ValueError
+        return timedelta
 
     def __str__(self):
         return f"{self.user.username}'s habit '{self.name}'"
