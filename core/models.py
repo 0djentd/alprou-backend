@@ -32,13 +32,13 @@ class Habit(TimeStampedModel, models.Model):
     # Days when habit was completed
     # completed: list[Day]
 
-    def complete(self) -> bool:
+    def done(self) -> bool:
         """Check habit as completed today.
 
         Returns False, if already completed today.
         """
         day = Day(user=self.user, habit=self)
-        if len(self.completed) == 0:
+        if len(self.completed.all()) == 0:
             day.save()
             result = True
         else:

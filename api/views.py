@@ -3,6 +3,8 @@ import json
 
 from django.contrib.auth.models import User
 from django.db.models.query import QuerySet
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponseForbidden
 from rest_framework import viewsets
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.decorators import action
@@ -32,6 +34,17 @@ class ProfilesViewset(VisibleObjectsMixin, viewsets.ModelViewSet):
 class HabitsViewset(VisibleObjectsMixin, viewsets.ModelViewSet):
     model = Habit
     serializer_class = serializers.HabitSerializer
+
+    @action(methods=['PATCH'], detail=True)
+    def done(self, request, pk):
+        instance = get_object_or_404(self.model, id=pk)
+        if instance.user != request.user:
+            return HttpResponseForbidden()
+        instance.done()
+        instance.save()
+        return Response({}, status=201)
+
+
 
 
 class DaysViewset(VisibleObjectsMixin, viewsets.ModelViewSet):
