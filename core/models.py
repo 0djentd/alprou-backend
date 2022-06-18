@@ -27,7 +27,7 @@ class Habit(TimeStampedModel, models.Model):
     active = models.BooleanField(default=True, blank=False, null=False)
     public = models.BooleanField(default=False, blank=False, null=False)
     history = HistoricalRecords()
-    tags = TaggableManager()
+    tags = TaggableManager(blank=True)
 
     # Days when habit was completed
     # completed: list[Day]
