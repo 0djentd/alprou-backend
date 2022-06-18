@@ -1,9 +1,12 @@
 import logging
+import json
 
 from django.contrib.auth.models import User
 from django.db.models.query import QuerySet
 from rest_framework import viewsets
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
 from core.models import Profile, Habit, Day
 
@@ -19,6 +22,11 @@ logger.setLevel(logging.DEBUG)
 class ProfilesViewset(VisibleObjectsMixin, viewsets.ModelViewSet):
     model = Profile
     serializer_class = serializers.ProfileSerializer
+    
+    @action(methods=['GET'], detail=False)
+    def get_user_profile_id(self, request):
+        pk = request.user.profile.id
+        return Response({"pk": pk})
 
 
 class HabitsViewset(VisibleObjectsMixin, viewsets.ModelViewSet):
