@@ -55,6 +55,9 @@ class Habit(TimeStampedModel, models.Model):
         logger.debug(result)
         return result
 
+    def __str__(self):
+        return f"{self.user.username}'s habit '{self.name}'"
+
 
 class Day(models.Model):
     """Object representing date/time when user checked habit as completed."""
@@ -67,6 +70,9 @@ class Day(models.Model):
     datetime = models.DateTimeField(auto_now_add=True)
     public = models.BooleanField(default=False, blank=False, null=False)
     history = HistoricalRecords()
+
+    def __str__(self):
+        return f"{self.user.username}'s '{self.habit.name}' ({self.datetime})"
 
 
 class Profile(TimeStampedModel, models.Model):
@@ -91,3 +97,6 @@ class Profile(TimeStampedModel, models.Model):
     def habits(self) -> QuerySet:
         active_habits = self.user.habits.all()
         return active_habits
+
+    def __str__(self):
+        return f"{self.user.username}'s profile"
