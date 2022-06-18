@@ -61,7 +61,7 @@ class Habit(TimeStampedModel, models.Model):
             result = False
         else:
             timedelta = self._get_timedelta()
-            result = timedelta.days > 0
+            result = timedelta.days == 0
         return result
 
     def _get_timedelta(self):

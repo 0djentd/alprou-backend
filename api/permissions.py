@@ -4,7 +4,7 @@ from rest_framework import permissions
 
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.WARNING)
 logging.basicConfig(level=logging.DEBUG)
 
 
