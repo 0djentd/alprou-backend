@@ -76,17 +76,18 @@ class Profile(TimeStampedModel, models.Model):
                                 on_delete=models.CASCADE,
                                 auto_created=True)
     public = models.BooleanField(default=False, blank=False, null=False)
-    public_username = models.CharField(verbose_name="Public username", max_length=100, null=True, blank=False)
+    public_username = models.CharField(
+        verbose_name="Public username", max_length=100, null=True, blank=False)
     profile_image = models.ImageField(null=True, blank=True)
     background_image = models.ImageField(null=True, blank=True)
     history = HistoricalRecords()
 
     @property
     def active_habits(self) -> QuerySet:
-        active_habits =  self.user.habits.all().filter(active=True)
+        active_habits = self.user.habits.all().filter(active=True)
         return active_habits
 
     @property
     def habits(self) -> QuerySet:
-        active_habits =  self.user.habits.all()
+        active_habits = self.user.habits.all()
         return active_habits

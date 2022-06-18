@@ -24,7 +24,7 @@ logger.setLevel(logging.DEBUG)
 class ProfilesViewset(VisibleObjectsMixin, viewsets.ModelViewSet):
     model = Profile
     serializer_class = serializers.ProfileSerializer
-    
+
     @action(methods=['GET'], detail=False)
     def get_user_profile_id(self, request):
         pk = request.user.profile.id
@@ -43,8 +43,6 @@ class HabitsViewset(VisibleObjectsMixin, viewsets.ModelViewSet):
         instance.done()
         instance.save()
         return Response({}, status=201)
-
-
 
 
 class DaysViewset(VisibleObjectsMixin, viewsets.ModelViewSet):

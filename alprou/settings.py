@@ -116,7 +116,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTHENTICATION_BACKENDS = ['axes.backends.AxesBackend'] + AUTHENTICATION_BACKENDS
+AUTHENTICATION_BACKENDS = [
+    'axes.backends.AxesBackend'] + AUTHENTICATION_BACKENDS
 
 
 # Internationalization
@@ -144,8 +145,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = (
-        'http://localhost:3000',
-        )
+    'http://localhost:3000',
+)
 
 # DRF
 REST_FRAMEWORK = {

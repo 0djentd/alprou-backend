@@ -46,6 +46,7 @@ class IsObjectPublic(_log_mixin, permissions.BasePermission):
         self.log_check(result, req, view, obj)
         return result
 
+
 class IsSameIdAsUser(_log_mixin, permissions.BasePermission):
     def has_object_permission(self, req, view, obj):
         result = False

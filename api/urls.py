@@ -10,7 +10,7 @@ router.register('habits', views.HabitsViewset, 'habit')
 router.register('days', views.DaysViewset, 'day')
 
 urlpatterns = [
-        path("", include(router.urls)),
-        path("", include("rest_framework.urls")),
-        path("authtoken/", obtain_auth_token),
-            ]
+    path("", include(router.urls)),
+    path("", include("rest_framework.urls")),
+    path("authtoken/", obtain_auth_token),
+]
