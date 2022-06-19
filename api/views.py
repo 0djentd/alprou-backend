@@ -34,6 +34,7 @@ class ProfilesViewset(VisibleObjectsMixin, viewsets.ModelViewSet):
 class HabitsViewset(VisibleObjectsMixin, viewsets.ModelViewSet):
     model = Habit
     serializer_class = serializers.HabitSerializer
+    filterset_fields = ("user", )
 
     @action(methods=['PATCH'], detail=True)
     def done(self, request, pk):

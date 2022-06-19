@@ -5,6 +5,7 @@ django-model-utils
 django-simple-history
 django-taggit
 django-axes
+django-filter
 drf-yasg
 pillow
 pyyaml
