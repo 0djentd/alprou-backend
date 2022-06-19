@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'api',
     'core',
     'docs',
+
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
@@ -52,7 +53,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'axes',
     'django_filters',
-    'crispy_forms'
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -62,10 +63,11 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'axes.middleware.AxesMiddleware',
-    'simple_history.middleware.HistoryRequestMiddleware'
+    'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
 ROOT_URLCONF = 'alprou.urls'
@@ -167,8 +169,8 @@ REST_FRAMEWORK = {
         'user': '10000/day',
     },
     'DEFAULT_FILTER_BACKENDS': [
-        'django_filters.rest_framework.DjangoFilterBackend',
         'rest_framework.filters.SearchFilter',
+        'django_filters.rest_framework.DjangoFilterBackend',
         'rest_framework.filters.OrderingFilter'
     ],
     'DEFAULT_PAGINATION_CLASS':
