@@ -35,7 +35,8 @@ class HabitsViewset(VisibleObjectsMixin, viewsets.ModelViewSet):
     model = Habit
     serializer_class = serializers.HabitSerializer
     filterset_fields = ("active", "negative", "user", "public")
-    search_fields = ["user", 'name', 'description', 'days', 'created', 'modified', 'tags']
+    search_fields = ["user", 'name', 'description',
+                     'days', 'created', 'modified', 'tags']
 
     @action(methods=['PATCH'], detail=True)
     def done(self, request, pk):
