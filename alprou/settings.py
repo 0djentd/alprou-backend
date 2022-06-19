@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'axes',
     'django_filters',
+    'crispy_forms'
 ]
 
 MIDDLEWARE = [
@@ -179,3 +180,6 @@ TAGGIT_CASE_INSENSITIVE = True
 # django-axes
 # SILENCED_SYSTEM_CHECKS = ['axes.W002']
 AXES_FAILURE_LIMIT = 20
+
+# django-crispy-forms
+CRISPY_TEMPLATE_PACK = 'bootstrap'
