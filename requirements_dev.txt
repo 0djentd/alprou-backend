@@ -1,3 +1,0 @@
-httpie
-requests
-autopep8
