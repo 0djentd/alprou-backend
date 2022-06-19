@@ -34,7 +34,7 @@ class ProfilesViewset(VisibleObjectsMixin, viewsets.ModelViewSet):
 class HabitsViewset(VisibleObjectsMixin, viewsets.ModelViewSet):
     model = Habit
     serializer_class = serializers.HabitSerializer
-    filterset_fields = ("user", )
+    filterset_fields = ("active", "negative", "user", "public")
     search_fields = ["user", 'name', 'description', 'days', 'created', 'modified', 'tags']
 
     @action(methods=['PATCH'], detail=True)
@@ -59,3 +59,8 @@ class UsersViewset(viewsets.ModelViewSet):
     def get_queryset(self) -> QuerySet:
         queryset = User.objects.all().filter(id=self.request.user.id)
         return queryset
+
+    @action(methods=['GET'], detail=False)
+    def get_user_id(self, request):
+        pk = request.user.id
+        return Response({"pk": pk})
