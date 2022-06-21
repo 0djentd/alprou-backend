@@ -108,6 +108,13 @@ class Profile(TimeStampedModel, models.Model):
     history = HistoricalRecords()
 
     @property
+    def username(self):
+        if self.public_username:
+            return self.public_username
+        else:
+            return self.user.username
+
+    @property
     def active_habits(self) -> QuerySet:
         active_habits = self.user.habits.all().filter(active=True)
         return active_habits

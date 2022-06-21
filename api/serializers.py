@@ -8,8 +8,9 @@ class ProfileSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Profile
         fields = ["id", "url", "user", "created", "modified", "public",
-                  "public_username", "profile_image", "background_image"]
-        read_only_fields = ["id", "url", "created", "modified", "user"]
+                  "public_username", "username", "profile_image", "background_image"]
+        read_only_fields = ["id", "url", "username",
+                            "created", "modified", "user"]
 
 
 class HabitSerializer(TaggitSerializer, serializers.HyperlinkedModelSerializer):
