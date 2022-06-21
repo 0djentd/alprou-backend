@@ -47,6 +47,9 @@ class HabitsViewset(VisibleObjectsMixin, viewsets.ModelViewSet):
         instance.save()
         return Response({}, status=201)
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
 
 class DaysViewset(VisibleObjectsMixin, viewsets.ModelViewSet):
     model = Day

@@ -18,9 +18,9 @@ class HabitSerializer(TaggitSerializer, serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Habit
-        fields = ["id", "url", "created", "modified", "name", "description", "user",
+        fields = ["id", "url", "user", "created", "modified", "name", "description", "user",
                   "active", "negative", "public", "completed", "completed_today", "tags"]
-        read_only_fields = ["id", "url", "created",
+        read_only_fields = ["id", "url", "created", "user",
                             "modified", "user", "completed", "completed_today"]
 
 
