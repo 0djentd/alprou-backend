@@ -5,29 +5,32 @@ from core.models import Profile, Habit, Day
 
 
 class ProfileSerializer(serializers.HyperlinkedModelSerializer):
+    id = serializers.IntegerField(read_only=True)
+
     class Meta:
         model = Profile
-        fields = ["id", "url", "user", "created", "modified", "private",
-                  "public_username", "username", "profile_image", "background_image"]
+        fields = "__all__"
         read_only_fields = ["id", "url", "username",
                             "created", "modified", "user"]
 
 
 class HabitSerializer(TaggitSerializer, serializers.HyperlinkedModelSerializer):
+    id = serializers.IntegerField(read_only=True)
     tags = TagListSerializerField()
 
     class Meta:
         model = Habit
-        fields = ["id", "url", "user", "created", "modified", "name", "description", "user",
-                  "active", "negative", "private", "completed", "completed_today", "tags"]
+        fields = "__all__"
         read_only_fields = ["id", "url", "created", "user",
                             "modified", "user", "completed", "completed_today"]
 
 
 class DaySerializer(serializers.HyperlinkedModelSerializer):
+    id = serializers.IntegerField(read_only=True)
+
     class Meta:
         model = Day
-        fields = ["id", "url", "user", "habit", "datetime", "private"]
+        fields = "__all__"
         read_only_fields = ["id", "url", "user", "habit", "datetime"]
 
 
