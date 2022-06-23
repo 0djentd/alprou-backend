@@ -16,6 +16,7 @@ class ProfileSerializer(serializers.HyperlinkedModelSerializer):
 
 class HabitSerializer(TaggitSerializer, serializers.HyperlinkedModelSerializer):
     id = serializers.IntegerField(read_only=True)
+    completed_today = serializers.BooleanField(read_only=True)
     tags = TagListSerializerField()
 
     class Meta:
