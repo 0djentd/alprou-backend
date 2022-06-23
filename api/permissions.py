@@ -40,7 +40,7 @@ class IsObjectPublic(_log_mixin, permissions.BasePermission):
 
     def has_object_permission(self, req, view, obj):
         result = False
-        if obj.user.id != req.user.id and obj.public:
+        if obj.user.id != req.user.id and not obj.private:
             if req.method in permissions.SAFE_METHODS:
                 result = True
         self.log_check(result, req, view, obj)

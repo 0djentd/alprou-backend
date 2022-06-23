@@ -25,7 +25,7 @@ class Habit(TimeStampedModel, models.Model):
     description = models.TextField(max_length=2000, blank=True, null=False)
     negative = models.BooleanField(default=False, blank=False, null=False)
     active = models.BooleanField(default=True, blank=False, null=False)
-    public = models.BooleanField(default=False, blank=False, null=False)
+    private = models.BooleanField(default=False, blank=False, null=False)
     history = HistoricalRecords()
     tags = TaggableManager(blank=True)
 
@@ -87,7 +87,7 @@ class Day(models.Model):
                               related_name="completed",
                               on_delete=models.CASCADE)
     datetime = models.DateTimeField(auto_now_add=True)
-    public = models.BooleanField(default=False, blank=False, null=False)
+    private = models.BooleanField(default=False, blank=False, null=False)
     history = HistoricalRecords()
 
     def __str__(self):
@@ -100,7 +100,7 @@ class Profile(TimeStampedModel, models.Model):
                                 related_name="profile",
                                 on_delete=models.CASCADE,
                                 auto_created=True)
-    public = models.BooleanField(default=False, blank=False, null=False)
+    private = models.BooleanField(default=False, blank=False, null=False)
     public_username = models.CharField(
         verbose_name="Public username", max_length=100, null=True, blank=False)
     profile_image = models.ImageField(null=True, blank=True)

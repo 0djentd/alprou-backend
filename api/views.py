@@ -34,7 +34,7 @@ class ProfilesViewset(VisibleObjectsMixin, viewsets.ModelViewSet):
 class HabitsViewset(VisibleObjectsMixin, viewsets.ModelViewSet):
     model = Habit
     serializer_class = serializers.HabitSerializer
-    filterset_fields = ("active", "negative", "user", "public")
+    filterset_fields = ("active", "negative", "user", "private")
     search_fields = ["user", 'name', 'description',
                      'days', 'created', 'modified', 'tags']
 
