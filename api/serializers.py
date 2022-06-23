@@ -38,5 +38,5 @@ class DaySerializer(serializers.HyperlinkedModelSerializer):
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'url', 'profile', 'habits', 'days']
+        fields = ['id', "username", 'url', 'profile', 'habits', 'days']
         read_only_fields = ["id", "url", 'profile', 'habits', 'days']
