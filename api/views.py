@@ -13,8 +13,8 @@ from rest_framework.response import Response
 from core.models import Profile, Habit, Day
 
 from . import serializers
-from . mixins import VisibleObjectsMixin
-from . permissions import IsSameIdAsUser
+from .mixins import VisibleObjectsMixin
+from .permissions import IsSameIdAsUser
 
 
 logger = logging.getLogger(__name__)
@@ -25,7 +25,7 @@ class ProfilesViewset(VisibleObjectsMixin, viewsets.ModelViewSet):
     model = Profile
     serializer_class = serializers.ProfileSerializer
 
-    @action(methods=['GET'], detail=False)
+    @action(methods=["GET"], detail=False)
     def get_user_profile_id(self, request):
         pk = request.user.profile.id
         return Response({"pk": pk})
@@ -35,10 +35,17 @@ class HabitsViewset(VisibleObjectsMixin, viewsets.ModelViewSet):
     model = Habit
     serializer_class = serializers.HabitSerializer
     filterset_fields = ("active", "negative", "user", "private")
-    search_fields = ["user", 'name', 'description',
-                     'days', 'created', 'modified', 'tags']
+    search_fields = [
+        "user",
+        "name",
+        "description",
+        "days",
+        "created",
+        "modified",
+        "tags",
+    ]
 
-    @action(methods=['PATCH'], detail=True)
+    @action(methods=["PATCH"], detail=True)
     def done(self, request, pk):
         instance = get_object_or_404(self.model, id=pk)
         if instance.user != request.user:
@@ -64,7 +71,7 @@ class UsersViewset(viewsets.ModelViewSet):
         queryset = User.objects.all().filter(id=self.request.user.id)
         return queryset
 
-    @action(methods=['GET'], detail=False)
+    @action(methods=["GET"], detail=False)
     def get_user_id(self, request):
         pk = request.user.id
         return Response({"pk": pk})

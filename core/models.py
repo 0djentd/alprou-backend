@@ -17,9 +17,8 @@ logger.setLevel(logging.DEBUG)
 
 class Habit(TimeStampedModel, models.Model):
     """Object representing a habit."""
-    user = models.ForeignKey(User,
-                             related_name="habits",
-                             on_delete=models.CASCADE)
+
+    user = models.ForeignKey(User, related_name="habits", on_delete=models.CASCADE)
 
     name = models.CharField(max_length=200, blank=False, null=False)
     description = models.TextField(max_length=2000, blank=True, null=False)
@@ -66,7 +65,7 @@ class Habit(TimeStampedModel, models.Model):
 
     def _get_timedelta(self):
         completed_count = len(self.completed.all())
-        last = self.completed.all()[completed_count-1].datetime
+        last = self.completed.all()[completed_count - 1].datetime
         now = datetime.datetime.now(datetime.timezone.utc)
         timedelta = now - last
         logger.debug(f"{last} - {now} = {timedelta}")
@@ -80,12 +79,9 @@ class Habit(TimeStampedModel, models.Model):
 
 class Day(models.Model):
     """Object representing date/time when user checked habit as completed."""
-    user = models.ForeignKey(User,
-                             related_name="days",
-                             on_delete=models.CASCADE)
-    habit = models.ForeignKey(Habit,
-                              related_name="completed",
-                              on_delete=models.CASCADE)
+
+    user = models.ForeignKey(User, related_name="days", on_delete=models.CASCADE)
+    habit = models.ForeignKey(Habit, related_name="completed", on_delete=models.CASCADE)
     datetime = models.DateTimeField(auto_now_add=True)
     private = models.BooleanField(default=False, blank=False, null=False)
     history = HistoricalRecords()
@@ -96,13 +92,14 @@ class Day(models.Model):
 
 class Profile(TimeStampedModel, models.Model):
     """User's profile."""
-    user = models.OneToOneField(User,
-                                related_name="profile",
-                                on_delete=models.CASCADE,
-                                auto_created=True)
+
+    user = models.OneToOneField(
+        User, related_name="profile", on_delete=models.CASCADE, auto_created=True
+    )
     private = models.BooleanField(default=False, blank=False, null=False)
     public_username = models.CharField(
-        verbose_name="Public username", max_length=100, null=True, blank=False)
+        verbose_name="Public username", max_length=100, null=True, blank=False
+    )
     profile_image = models.ImageField(null=True, blank=True)
     background_image = models.ImageField(null=True, blank=True)
     history = HistoricalRecords()

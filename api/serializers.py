@@ -10,8 +10,7 @@ class ProfileSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Profile
         fields = "__all__"
-        read_only_fields = ["id", "url", "username",
-                            "created", "modified", "user"]
+        read_only_fields = ["id", "url", "username", "created", "modified", "user"]
 
 
 class HabitSerializer(TaggitSerializer, serializers.HyperlinkedModelSerializer):
@@ -22,8 +21,16 @@ class HabitSerializer(TaggitSerializer, serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Habit
         fields = "__all__"
-        read_only_fields = ["id", "url", "created", "user",
-                            "modified", "user", "completed", "completed_today"]
+        read_only_fields = [
+            "id",
+            "url",
+            "created",
+            "user",
+            "modified",
+            "user",
+            "completed",
+            "completed_today",
+        ]
 
 
 class DaySerializer(serializers.HyperlinkedModelSerializer):
@@ -38,5 +45,5 @@ class DaySerializer(serializers.HyperlinkedModelSerializer):
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ['id', "username", 'url', 'profile', 'habits', 'days']
-        read_only_fields = ["id", "url", 'profile', 'habits', 'days']
+        fields = ["id", "username", "url", "profile", "habits", "days"]
+        read_only_fields = ["id", "url", "profile", "habits", "days"]

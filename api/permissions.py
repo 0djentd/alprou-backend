@@ -8,7 +8,7 @@ logger.setLevel(logging.WARNING)
 logging.basicConfig(level=logging.DEBUG)
 
 
-class _log_mixin():
+class _log_mixin:
     def log_check(self, result, req, view, obj=None):
         logger.debug("===============================================")
         logger.debug(f"checking permissions '{self.__class__.__name__}'")
