@@ -98,7 +98,7 @@ class Profile(TimeStampedModel, models.Model):
     )
     private = models.BooleanField(default=False, blank=False, null=False)
     public_username = models.CharField(
-        verbose_name="Public username", max_length=100, null=True, blank=False
+        verbose_name="Public username", max_length=100, null=True, blank=True
     )
     profile_image = models.ImageField(null=True, blank=True)
     background_image = models.ImageField(null=True, blank=True)
