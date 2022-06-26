@@ -8,5 +8,5 @@ schema_view = get_schema_view(
         default_version="v1",
         description="Minimalistic habits tracker.",
     ),
-    public=False,
+    public=True,
 )
