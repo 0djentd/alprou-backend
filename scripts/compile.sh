@@ -2,10 +2,6 @@
 
 set -e
 
-cd frontend/frontend
-npm install
-npm run build
-cd ../..
 source .venv/bin/activate
 ./manage.py collectstatic --no-input
 mkdir -p frontend/templates/frontend
