@@ -1,8 +1,10 @@
 .venv/
 __pycache__/
 .mypy_cache/
+.vscode/
+
 migrations/
 db.sqlite3
-
 django_key
-.vscode/
+db_config.py
+

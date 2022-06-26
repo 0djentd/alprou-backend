@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+from db_config import DB_CONFIG_NO_DEBUG
 
 from django.conf.global_settings import AUTHENTICATION_BACKENDS
 
@@ -91,11 +92,18 @@ WSGI_APPLICATION = "alprou.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {
+_DB_CONFIG_DEBUG = {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
     }
+
+if DEBUG:
+    DB_CONFIG = _DB_CONFIG_DEBUG
+else:
+    DB_CONFIG = DB_CONFIG_NO_DEBUG
+
+DATABASES = {
+    "default": DB_CONFIG,
 }
 
 
