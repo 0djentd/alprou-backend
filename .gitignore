@@ -9,4 +9,5 @@ django_key
 db_config.py
 
 static
+frontend/templates/frontend/index.html
 
