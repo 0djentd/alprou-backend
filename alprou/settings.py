@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "simple_history",
     "taggit",
+    "annoying",
     "drf_yasg",
     "axes",
     "django_filters",

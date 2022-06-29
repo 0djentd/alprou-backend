@@ -5,6 +5,8 @@ import logging
 from taggit.managers import TaggableManager
 from simple_history.models import HistoricalRecords
 
+from annoying.fields import AutoOneToOneField
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.query import QuerySet
@@ -93,13 +95,16 @@ class Day(models.Model):
 class Profile(TimeStampedModel, models.Model):
     """User's profile."""
 
-    user = models.OneToOneField(
-        User, related_name="profile", on_delete=models.CASCADE, auto_created=True
-    )
+    user = AutoOneToOneField(
+        User, related_name="profile",
+        on_delete=models.CASCADE, primary_key=True)
+
     private = models.BooleanField(default=False, blank=False, null=False)
+
     public_username = models.CharField(
-        verbose_name="Public username", max_length=100, null=True, blank=True
-    )
+        verbose_name="Public username", max_length=100,
+        null=True, blank=True)
+
     profile_image = models.ImageField(null=True, blank=True)
     background_image = models.ImageField(null=True, blank=True)
     history = HistoricalRecords()

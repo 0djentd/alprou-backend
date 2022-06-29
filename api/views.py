@@ -14,7 +14,7 @@ from rest_framework.response import Response
 from core.models import Profile, Habit, Day
 
 from . import serializers
-from .mixins import VisibleObjectsMixin
+from .mixins import VisibleToUserObjectsMixin, VisibleToUserObjectsMixin
 from .permissions import IsSameIdAsUser
 
 
@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
 
-class HabitsViewset(VisibleObjectsMixin, viewsets.ModelViewSet):
+class HabitsViewset(VisibleToUserObjectsMixin, viewsets.ModelViewSet):
     model = Habit
     serializer_class = serializers.HabitSerializer
     filterset_fields = ("active", "negative", "user", "private")
@@ -50,7 +50,7 @@ class HabitsViewset(VisibleObjectsMixin, viewsets.ModelViewSet):
 
 
 class DaysViewset(
-        VisibleObjectsMixin,
+        VisibleToUserObjectsMixin,
         viewsets.generics.RetrieveDestroyAPIView,
         viewsets.generics.ListAPIView,
         viewsets.GenericViewSet):
@@ -66,7 +66,10 @@ class UsersViewset(
     permission_classes = [IsAuthenticated & IsSameIdAsUser]
 
     def get_queryset(self) -> QuerySet:
-        queryset = User.objects.all().filter(id=self.request.user.id)
+        if self.request.user.is_staff:
+            queryset = User.objects.all()
+        else:
+            queryset = User.objects.all().filter(id=self.request.user.id)
         return queryset
 
     @action(methods=["GET"], detail=False)
@@ -76,7 +79,7 @@ class UsersViewset(
 
 
 class ProfilesViewset(
-        VisibleObjectsMixin,
+        VisibleToUserObjectsMixin,
         viewsets.generics.RetrieveUpdateAPIView,
         viewsets.generics.ListAPIView,
         viewsets.GenericViewSet):
