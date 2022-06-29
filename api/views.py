@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.db.models.query import QuerySet
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseForbidden
+from rest_framework import views
 from rest_framework import viewsets
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.decorators import action
@@ -58,12 +59,12 @@ class HabitsViewset(VisibleObjectsMixin, viewsets.ModelViewSet):
         serializer.save(user=self.request.user)
 
 
-class DaysViewset(VisibleObjectsMixin, viewsets.ModelViewSet):
+class DaysViewset(VisibleObjectsMixin, viewsets.ReadOnlyModelViewSet):
     model = Day
     serializer_class = serializers.DaySerializer
 
 
-class UsersViewset(viewsets.ModelViewSet):
+class UsersViewset(viewsets.ReadOnlyModelViewSet):
     serializer_class = serializers.UserSerializer
     permission_classes = [IsAuthenticated & IsSameIdAsUser]
 
