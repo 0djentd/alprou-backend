@@ -21,6 +21,12 @@ class VisibleObjectsMixin:
     permission_classes = [IsAuthenticated & (IsObjectPublic | IsObjectAuthor)]
 
     def get_queryset(self) -> QuerySet:
+        logging.debug("Getting queryset for " + str(self.model))
+        logging.debug("user:" + str(self.request.user))
         q_1 = self.model.objects.all().filter(private=False)
         q_2 = self.model.objects.all().filter(user=self.request.user)
-        return q_1 | q_2
+        result = q_1 | q_2
+        logging.debug(q_1)
+        logging.debug(q_2)
+        logging.debug(result)
+        return result
