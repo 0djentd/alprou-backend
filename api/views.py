@@ -22,20 +22,6 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
 
-class ProfilesViewset(
-        VisibleObjectsMixin,
-        viewsets.generics.RetrieveUpdateAPIView,
-        viewsets.generics.ListAPIView,
-        viewsets.GenericViewSet):
-    model = Profile
-    serializer_class = serializers.ProfileSerializer
-
-    @action(methods=["GET"], detail=False)
-    def get_user_profile_id(self, request):
-        pk = request.user.profile.id
-        return Response({"pk": pk})
-
-
 class HabitsViewset(VisibleObjectsMixin, viewsets.ModelViewSet):
     model = Habit
     serializer_class = serializers.HabitSerializer
@@ -84,6 +70,20 @@ class UsersViewset(
         return queryset
 
     @action(methods=["GET"], detail=False)
-    def get_user_id(self, request):
+    def user_id(self, request):
         pk = request.user.id
+        return Response({"pk": pk})
+
+
+class ProfilesViewset(
+        VisibleObjectsMixin,
+        viewsets.generics.RetrieveUpdateAPIView,
+        viewsets.generics.ListAPIView,
+        viewsets.GenericViewSet):
+    model = Profile
+    serializer_class = serializers.ProfileSerializer
+
+    @action(methods=["GET"], detail=False)
+    def profile_id(self, request):
+        pk = request.user.profile.id
         return Response({"pk": pk})
