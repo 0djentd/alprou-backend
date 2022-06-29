@@ -22,7 +22,11 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
 
-class ProfilesViewset(VisibleObjectsMixin, viewsets.ModelViewSet):
+class ProfilesViewset(
+        VisibleObjectsMixin,
+        viewsets.generics.RetrieveUpdateAPIView,
+        viewsets.generics.ListAPIView,
+        viewsets.GenericViewSet):
     model = Profile
     serializer_class = serializers.ProfileSerializer
 
@@ -59,12 +63,19 @@ class HabitsViewset(VisibleObjectsMixin, viewsets.ModelViewSet):
         serializer.save(user=self.request.user)
 
 
-class DaysViewset(VisibleObjectsMixin, viewsets.ReadOnlyModelViewSet):
+class DaysViewset(
+        VisibleObjectsMixin,
+        viewsets.generics.RetrieveDestroyAPIView,
+        viewsets.generics.ListAPIView,
+        viewsets.GenericViewSet):
     model = Day
     serializer_class = serializers.DaySerializer
 
 
-class UsersViewset(viewsets.ReadOnlyModelViewSet):
+class UsersViewset(
+        viewsets.generics.ListAPIView,
+        viewsets.generics.RetrieveAPIView,
+        viewsets.GenericViewSet):
     serializer_class = serializers.UserSerializer
     permission_classes = [IsAuthenticated & IsSameIdAsUser]
 
