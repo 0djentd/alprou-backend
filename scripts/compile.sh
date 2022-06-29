@@ -2,7 +2,7 @@
 
 set -e
 
-source .venv/bin/activate
+source ~/.alprou_venv/bin/activate
 ./manage.py collectstatic --no-input
 mkdir -p frontend/templates/frontend
 cp static/alprou-frontend/index.html frontend/templates/frontend/index.html
