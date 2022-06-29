@@ -29,7 +29,7 @@ with open("/home/0djentd/alprou/django_key") as f:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["https://0djentd.pythonanywhere.com"]
+ALLOWED_HOSTS = ["0djentd.pythonanywhere.com"]
 
 
 # Application definition
