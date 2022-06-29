@@ -6,8 +6,8 @@ Backend server for [Alprou](https://github.com/0djentd/alprou).
 ## Installation
 ```
 git clone https://github.com/0djentd/alprou_backend.git
-git pull --recurse-submodules
 cd alprou_backend
+git pull --recurse-submodules
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
