@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from taggit.serializers import TagListSerializerField, TaggitSerializer
-from .models import Profile
+from core.models import Profile
 
 
 class ProfileSerializer(serializers.HyperlinkedModelSerializer):

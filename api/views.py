@@ -15,7 +15,7 @@ from core.models import Profile
 from .serializers import ProfileSerializer, UserSerializer
 
 from habits.models import Habit, Day
-from habits.serializers import ProfileSerializer, UserSerializer
+from habits.serializers import HabitSerializer, DaySerializer
 
 from .mixins import VisibleToUserObjectsMixin, VisibleToUserObjectsMixin
 from .permissions import IsSameIdAsUser
