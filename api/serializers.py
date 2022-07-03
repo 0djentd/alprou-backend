@@ -10,7 +10,8 @@ class ProfileSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Profile
         fields = "__all__"
-        read_only_fields = ["id", "url", "username", "created", "modified", "user"]
+        read_only_fields = ["id", "url", "username",
+                            "created", "modified", "user"]
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):

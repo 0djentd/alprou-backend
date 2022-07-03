@@ -5,11 +5,8 @@ import logging
 from taggit.managers import TaggableManager
 from simple_history.models import HistoricalRecords
 
-from annoying.fields import AutoOneToOneField
-
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.query import QuerySet
 
 from model_utils.models import TimeStampedModel
 
@@ -20,7 +17,8 @@ logger.setLevel(logging.DEBUG)
 class Habit(TimeStampedModel, models.Model):
     """Object representing a habit."""
 
-    user = models.ForeignKey(User, related_name="habits", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name="habits",
+                             on_delete=models.CASCADE)
 
     name = models.CharField(max_length=200, blank=False, null=False)
     description = models.TextField(max_length=2000, blank=True, null=False)
@@ -82,8 +80,10 @@ class Habit(TimeStampedModel, models.Model):
 class Day(models.Model):
     """Object representing date/time when user checked habit as completed."""
 
-    user = models.ForeignKey(User, related_name="days", on_delete=models.CASCADE)
-    habit = models.ForeignKey(Habit, related_name="completed", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name="days",
+                             on_delete=models.CASCADE)
+    habit = models.ForeignKey(
+        Habit, related_name="completed", on_delete=models.CASCADE)
     datetime = models.DateTimeField(auto_now_add=True)
     private = models.BooleanField(default=False, blank=False, null=False)
     history = HistoricalRecords()
