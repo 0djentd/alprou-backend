@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "api",
     "core",
+    "habits",
     "frontend",
     "docs",
     "rest_framework",
@@ -95,9 +96,9 @@ WSGI_APPLICATION = "alprou.wsgi.application"
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 _DB_CONFIG_DEBUG = {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+    "ENGINE": "django.db.backends.sqlite3",
+    "NAME": BASE_DIR / "db.sqlite3",
+}
 
 if DEBUG:
     DB_CONFIG = _DB_CONFIG_DEBUG
@@ -127,7 +128,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTHENTICATION_BACKENDS = ["axes.backends.AxesBackend"] + AUTHENTICATION_BACKENDS
+AUTHENTICATION_BACKENDS = [
+    "axes.backends.AxesBackend"] + AUTHENTICATION_BACKENDS
 
 
 # Internationalization

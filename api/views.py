@@ -11,9 +11,12 @@ from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from core.models import Profile, Habit, Day
+from core.models import Profile
+from .serializers import ProfileSerializer, UserSerializer
 
-from . import serializers
+from habits.models import Habit, Day
+from habits.serializers import HabitSerializer, DaySerializer
+
 from .mixins import VisibleToUserObjectsMixin, VisibleToUserObjectsMixin
 from .permissions import IsSameIdAsUser
 
@@ -24,7 +27,7 @@ logger.setLevel(logging.DEBUG)
 
 class HabitsViewset(VisibleToUserObjectsMixin, viewsets.ModelViewSet):
     model = Habit
-    serializer_class = serializers.HabitSerializer
+    serializer_class = HabitSerializer
     filterset_fields = ("active", "negative", "user", "private")
     search_fields = [
         "user",
@@ -55,14 +58,14 @@ class DaysViewset(
         viewsets.generics.ListAPIView,
         viewsets.GenericViewSet):
     model = Day
-    serializer_class = serializers.DaySerializer
+    serializer_class = DaySerializer
 
 
 class UsersViewset(
         viewsets.generics.ListAPIView,
         viewsets.generics.RetrieveAPIView,
         viewsets.GenericViewSet):
-    serializer_class = serializers.UserSerializer
+    serializer_class = UserSerializer
     permission_classes = [IsAuthenticated & IsSameIdAsUser]
 
     def get_queryset(self) -> QuerySet:
@@ -84,7 +87,7 @@ class ProfilesViewset(
         viewsets.generics.ListAPIView,
         viewsets.GenericViewSet):
     model = Profile
-    serializer_class = serializers.ProfileSerializer
+    serializer_class = ProfileSerializer
 
     @action(methods=["GET"], detail=False)
     def profile_id(self, request):
