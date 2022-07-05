@@ -1,0 +1,24 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+djangorestframework = "*"
+django-annoying = "*"
+django-axes = "*"
+django-cors-headers = "*"
+django-crispy-forms = "*"
+django-filter = "*"
+django-model-utils = "*"
+django-simple-history = "*"
+django-taggit = "*"
+drf-yasg = "*"
+pillow = "*"
+
+
+[dev-packages]
+
+[requires]
+python_version = "3.10"
