@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
-from db_config import DB_CONFIG_NO_DEBUG
 
 from django.conf.global_settings import AUTHENTICATION_BACKENDS, STATICFILES_DIRS
 
@@ -103,6 +102,7 @@ _DB_CONFIG_DEBUG = {
 if DEBUG:
     DB_CONFIG = _DB_CONFIG_DEBUG
 else:
+    from db_config import DB_CONFIG_NO_DEBUG
     DB_CONFIG = DB_CONFIG_NO_DEBUG
 
 DATABASES = {
