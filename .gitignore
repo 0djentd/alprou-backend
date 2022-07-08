@@ -10,4 +10,6 @@ db_config.py
 
 static
 frontend/templates/frontend/index.html
+dist/
+build/
 
