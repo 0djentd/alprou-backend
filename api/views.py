@@ -1,23 +1,21 @@
 import logging
-import json
 
 from django.contrib.auth.models import User
 from django.db.models.query import QuerySet
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseForbidden
-from rest_framework import views
 from rest_framework import viewsets
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from core.models import Profile
-from .serializers import ProfileSerializer, UserSerializer
+from core.serializers import ProfileSerializer, UserSerializer
 
 from habits.models import Habit, Day
 from habits.serializers import HabitSerializer, DaySerializer
 
-from .mixins import VisibleToUserObjectsMixin, VisibleToUserObjectsMixin
+from .mixins import VisibleToUserObjectsMixin
 from .permissions import IsSameIdAsUser
 
 
