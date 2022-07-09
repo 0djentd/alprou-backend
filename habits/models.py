@@ -1,4 +1,3 @@
-import time
 import datetime
 import logging
 
@@ -22,9 +21,6 @@ class Habit(TimeStampedModel, models.Model):
 
     name = models.CharField(max_length=200, blank=False, null=False)
     description = models.TextField(max_length=2000, blank=True, null=False)
-    negative = models.BooleanField(default=False, blank=False, null=False)
-    active = models.BooleanField(default=True, blank=False, null=False)
-    private = models.BooleanField(default=False, blank=False, null=False)
     history = HistoricalRecords()
     tags = TaggableManager(blank=True)
 
@@ -85,7 +81,6 @@ class Day(models.Model):
     habit = models.ForeignKey(
         Habit, related_name="completed", on_delete=models.CASCADE)
     datetime = models.DateTimeField(auto_now_add=True)
-    private = models.BooleanField(default=False, blank=False, null=False)
     history = HistoricalRecords()
 
     def __str__(self):
