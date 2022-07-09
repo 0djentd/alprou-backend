@@ -4,9 +4,9 @@ from django.contrib.auth.models import User
 from django.db.models.query import QuerySet
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseForbidden
-from rest_framework import viewsets
+from rest_framework import viewsets, views
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
-from rest_framework.decorators import action
+from rest_framework.decorators import action, api_view, authentication_classes, permission_classes
 from rest_framework.response import Response
 
 from core.models import Profile
@@ -59,35 +59,53 @@ class DaysViewset(
     serializer_class = DaySerializer
 
 
-class UsersViewset(
-        viewsets.generics.ListAPIView,
-        viewsets.generics.RetrieveAPIView,
-        viewsets.GenericViewSet):
-    serializer_class = UserSerializer
-    permission_classes = [IsAuthenticated & IsSameIdAsUser]
-
-    def get_queryset(self) -> QuerySet:
-        if self.request.user.is_staff:
-            queryset = User.objects.all()
-        else:
-            queryset = User.objects.all().filter(id=self.request.user.id)
-        return queryset
-
-    @action(methods=["GET"], detail=False)
-    def user_id(self, request):
-        pk = request.user.id
-        return Response({"pk": pk})
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def get_user(request):
+    """Returns current user."""
+    user = request.user
+    serializer = UserSerializer(user, context={'request': request})
+    return Response(serializer.data, status=200)
 
 
-class ProfilesViewset(
-        VisibleToUserObjectsMixin,
-        viewsets.generics.RetrieveUpdateAPIView,
-        viewsets.generics.ListAPIView,
-        viewsets.GenericViewSet):
-    model = Profile
-    serializer_class = ProfileSerializer
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def get_profile(request):
+    """Returns current profile."""
+    profile = request.user
+    serializer = ProfileSerializer(profile, context={'request': request})
+    return Response(serializer.data, status=200)
 
-    @action(methods=["GET"], detail=False)
-    def profile_id(self, request):
-        pk = request.user.profile.id
-        return Response({"pk": pk})
+
+# class UsersViewset(
+#         viewsets.generics.ListAPIView,
+#         viewsets.generics.RetrieveAPIView,
+#         viewsets.GenericViewSet):
+#     serializer_class = UserSerializer
+#     permission_classes = [IsAuthenticated & IsSameIdAsUser]
+#
+#     def get_queryset(self) -> QuerySet:
+#         if self.request.user.is_staff:
+#             queryset = User.objects.all()
+#         else:
+#             queryset = User.objects.all().filter(id=self.request.user.id)
+#         return queryset
+#
+#     @action(methods=["GET"], detail=False)
+#     def user_id(self, request):
+#         pk = request.user.id
+#         return Response({"pk": pk})
+#
+#
+# class ProfilesViewset(
+#         VisibleToUserObjectsMixin,
+#         viewsets.generics.RetrieveUpdateAPIView,
+#         viewsets.generics.ListAPIView,
+#         viewsets.GenericViewSet):
+#     model = Profile
+#     serializer_class = ProfileSerializer
+#
+#     @action(methods=["GET"], detail=False)
+#     def profile_id(self, request):
+#         pk = request.user.profile.id
+#         return Response({"pk": pk})
