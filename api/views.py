@@ -26,7 +26,7 @@ logger.setLevel(logging.DEBUG)
 class HabitsViewset(VisibleToUserObjectsMixin, viewsets.ModelViewSet):
     model = Habit
     serializer_class = HabitSerializer
-    filterset_fields = ("active", "negative", "user", "private")
+    filterset_fields = ["user"]
     search_fields = [
         "user",
         "name",

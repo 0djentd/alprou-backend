@@ -35,16 +35,16 @@ class IsObjectAuthor(_log_mixin, permissions.BasePermission):
         return result
 
 
-class IsObjectPublic(_log_mixin, permissions.BasePermission):
-    """Other users can see object, but cant modify it."""
-
-    def has_object_permission(self, req, view, obj):
-        result = False
-        if obj.user.id != req.user.id and not obj.private:
-            if req.method in permissions.SAFE_METHODS:
-                result = True
-        self.log_check(result, req, view, obj)
-        return result
+# class IsObjectPublic(_log_mixin, permissions.BasePermission):
+#     """Other users can see object, but cant modify it."""
+#
+#     def has_object_permission(self, req, view, obj):
+#         result = False
+#         if obj.user.id != req.user.id and not obj.private:
+#             if req.method in permissions.SAFE_METHODS:
+#                 result = True
+#         self.log_check(result, req, view, obj)
+#         return result
 
 
 class IsSameIdAsUser(_log_mixin, permissions.BasePermission):
