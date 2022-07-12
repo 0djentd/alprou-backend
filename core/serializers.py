@@ -14,10 +14,10 @@ class ProfileSerializer(serializers.HyperlinkedModelSerializer):
                             "created", "modified", "user"]
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ["id", "username", "url", "profile", "habits", "days"]
-        read_only_fields = ["id", "username", "url",
+        fields = ["id", "username", "profile", "habits", "days"]
+        read_only_fields = ["id", "username",
                             "profile", "habits", "days"]
