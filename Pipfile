@@ -16,6 +16,7 @@ django-filter = "*"
 django-crispy-forms = "*"
 django-model-utils = "*"
 pillow = "*"
+pydantic = "*"
 
 [dev-packages]
 
