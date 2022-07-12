@@ -1,3 +1,5 @@
+[![Django CI](https://github.com/0djentd/alprou-backend/actions/workflows/django.yml/badge.svg)](https://github.com/0djentd/alprou-backend/actions/workflows/django.yml)
+
 # Alprou (backend)
 ![screenshot](screenshot_alprou_backend.png)
 ## Description
