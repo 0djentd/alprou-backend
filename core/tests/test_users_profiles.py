@@ -1,9 +1,11 @@
 import secrets
+
 from typing import Any
 
 from rest_framework.test import APITestCase
 from core.models import User, Profile
 from django.contrib.auth.forms import UserCreationForm
+from django.test import TestCase
 
 from pydantic import BaseModel
 
@@ -26,10 +28,13 @@ class UserData(BaseModel):
     password: str
     instance: Any
 
-    def __init__(self, register_user=False):
+    def __init__(self, register=False):
         username = secrets.token_urlsafe()
         password = secrets.token_urlsafe()
-        user = User(username=username)
+        if register_user:
+            user = register_user(username, password)
+        else:
+            user = User(username=username)
         user.set_password(password)
         user.save()
         user.refresh_from_db()
@@ -41,7 +46,7 @@ class UserData(BaseModel):
 
 class UserProfileTests(APITestCase):
     def setUp(self):
-        self.users = [UserData() for _ in range(3)]
+        self.users = [UserData(register=True) for _ in range(3)]
         self.user = self.users[0].instance
         self.profile = self.users[0].instance.profile
 
@@ -56,3 +61,8 @@ class UserProfileTests(APITestCase):
 
     def test_user_profile(self):
         self.assertEqual(self.user.profile, self.profile)
+
+
+class AuthTests(TestCase):
+    def setUp(self):
+        self.users = [UserData() for _ in range(3)]
