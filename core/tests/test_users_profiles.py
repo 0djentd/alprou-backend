@@ -1,23 +1,49 @@
 import secrets
+from typing import Any
 
 from rest_framework.test import APITestCase
 from core.models import User, Profile
 from django.contrib.auth.forms import UserCreationForm
 
+from pydantic import BaseModel
 
-class UserProfileTests(APITestCase):
-    def create_username_and_password(self):
-        self._USERNAME = secrets.token_urlsafe()
-        self._PASSWORD = secrets.token_urlsafe()
 
-    def setUp(self):
-        self.create_username_and_password()
-        user = User(username=self._USERNAME)
-        user.set_password(self._PASSWORD)
+def register_user(username, password):
+    data = dict(username=username,
+                password1=password,
+                password2=password)
+    form = UserCreationForm(data)
+    if form.is_valid():
+        form.save()
+    else:
+        raise ValueError
+    user = User.objects.get(username=username)
+    return user
+
+
+class UserData(BaseModel):
+    username: str
+    password: str
+    instance: Any
+
+    def __init__(self, register_user=False):
+        username = secrets.token_urlsafe()
+        password = secrets.token_urlsafe()
+        user = User(username=username)
+        user.set_password(password)
         user.save()
         user.refresh_from_db()
-        self.user = user
-        self.profile = user.profile
+        data = {"username": username,
+                "password": password,
+                "instance": user}
+        super().__init__(**data)
+
+
+class UserProfileTests(APITestCase):
+    def setUp(self):
+        self.users = [UserData() for _ in range(3)]
+        self.user = self.users[0].instance
+        self.profile = self.users[0].instance.profile
 
     def test_user_type(self):
         self.assertIsInstance(self.user, User)
@@ -28,30 +54,5 @@ class UserProfileTests(APITestCase):
     def test_user_id(self):
         self.assertEqual(self.user.id, 1)
 
-    def test_profile_user_id(self):
-        self.assertEqual(self.user.profile.id, 1)
-
-    def test_profile_user_id(self):
-        self.assertEqual(self.profile.user.id, 1)
-
     def test_user_profile(self):
         self.assertEqual(self.user.profile, self.profile)
-
-
-class UserRegisterTests(UserProfileTests):
-    def setUp(self):
-        self.create_username_and_password()
-        data = dict(username=self._USERNAME,
-                    password1=self._PASSWORD,
-                    password2=self._PASSWORD)
-        form = UserCreationForm(data)
-        if form.is_valid():
-            form.save()
-        else:
-            print(form.fields)
-            print(form.data)
-            print(form.error_messages)
-            raise ValueError
-        user = User.objects.get(username=self._USERNAME)
-        self.user = user
-        self.profile = user.profile
