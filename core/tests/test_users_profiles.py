@@ -47,20 +47,21 @@ class UserData(BaseModel):
 class UserProfileTests(APITestCase):
     def setUp(self):
         self.users = [UserData(register=True) for _ in range(3)]
-        self.user = self.users[0].instance
-        self.profile = self.users[0].instance.profile
 
     def test_user_type(self):
-        self.assertIsInstance(self.user, User)
+        for user in self.users:
+            with self.subTest(user=user.instance):
+                self.assertIsInstance(user.instance, User)
 
     def test_profile_type(self):
-        self.assertIsInstance(self.profile, Profile)
+        for user in self.users:
+            with self.subTest(user=user.instance):
+                self.assertIsInstance(user.instance.profile, Profile)
 
     def test_user_id(self):
-        self.assertEqual(self.user.id, 1)
-
-    def test_user_profile(self):
-        self.assertEqual(self.user.profile, self.profile)
+        for id, user in enumerate(self.users):
+            with self.subTest(user=user.instance):
+                self.assertEqual(user.instance.id, id + 1)
 
 
 class AuthTests(TestCase):
