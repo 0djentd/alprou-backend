@@ -1,15 +1,15 @@
 import logging
 
 from django.contrib.auth.models import User
-from django.db.models.query import QuerySet
+from django.db.models import QuerySet
+
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseForbidden
 
 from rest_framework import viewsets
-from rest_framework.views import APIView
-from rest_framework.permissions import IsAdminUser, IsAuthenticated
-from rest_framework.decorators import action, api_view, authentication_classes, permission_classes
+from rest_framework.decorators import action
 from rest_framework.response import Response
+from api.permissions import IsObjectAuthorOrReadonlyIfVisible
 
 from core.models import Profile
 from core.serializers import ProfileSerializer, UserSerializer
@@ -17,14 +17,13 @@ from core.serializers import ProfileSerializer, UserSerializer
 from habits.models import Habit, Day
 from habits.serializers import HabitSerializer, DaySerializer
 
-from .mixins import VisibleToUserObjectsMixin
-from .permissions import IsSameIdAsUser
+from .mixins import VisibleModelAPIViewsetMixin
 
 
 logger = logging.getLogger(__name__)
 
 
-class HabitsViewset(VisibleToUserObjectsMixin, viewsets.ModelViewSet):
+class HabitsViewset(VisibleModelAPIViewsetMixin, viewsets.ModelViewSet):
     model = Habit
     serializer_class = HabitSerializer
     filterset_fields = ["user"]
@@ -52,7 +51,7 @@ class HabitsViewset(VisibleToUserObjectsMixin, viewsets.ModelViewSet):
 
 
 class DaysViewset(
-        VisibleToUserObjectsMixin,
+        VisibleModelAPIViewsetMixin,
         viewsets.generics.RetrieveDestroyAPIView,
         viewsets.generics.ListAPIView,
         viewsets.GenericViewSet):
@@ -60,18 +59,8 @@ class DaysViewset(
     serializer_class = DaySerializer
 
 
-class UserAPIView(APIView):
-    """Returns currently active user."""
-    permission_classes = [IsAuthenticated]
-    serializer_class = UserSerializer
-
-    def get(self, request) -> UserSerializer:
-        data = UserSerializer(request.user, context={'request': request}).data
-        return Response(data)
-
-
 class ProfilesViewset(
-        VisibleToUserObjectsMixin,
+        VisibleModelAPIViewsetMixin,
         viewsets.generics.RetrieveUpdateAPIView,
         viewsets.generics.ListAPIView,
         viewsets.GenericViewSet):
@@ -84,3 +73,27 @@ class ProfilesViewset(
         profile = request.user.profile
         data = ProfileSerializer(profile, context={"request": request}).data
         return Response(data)
+
+
+# TODO remove this?
+class UsersViewset(
+        viewsets.generics.RetrieveUpdateAPIView,
+        viewsets.generics.ListAPIView,
+        viewsets.GenericViewSet):
+    model = User
+    serializer_class = UserSerializer
+    # TODO: another permission class to
+    # check user.profile.private instead of user.private
+    permission_classes = [IsObjectAuthorOrReadonlyIfVisible]
+
+    @action(methods=["GET"], detail=False)
+    def active(self, request):
+        """Returns currently active user"""
+        user = request.user
+        data = UserSerializer(user, context={"request": request}).data
+        return Response(data)
+
+    # TODO remove this?
+    def get_queryset(self) -> QuerySet:
+        user = self.request.user
+        return self.model.objects.all().filter(id=user.id)

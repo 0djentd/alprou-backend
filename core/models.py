@@ -16,6 +16,7 @@ logger.setLevel(logging.DEBUG)
 class Profile(TimeStampedModel, models.Model):
     """User's profile."""
 
+    private = models.BooleanField(default=True, null=False, blank=False)
     user = AutoOneToOneField(
         User, related_name="profile",
         on_delete=models.CASCADE, primary_key=True)

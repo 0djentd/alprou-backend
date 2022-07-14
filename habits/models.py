@@ -19,6 +19,7 @@ class Habit(TimeStampedModel, models.Model):
     user = models.ForeignKey(User, related_name="habits",
                              on_delete=models.CASCADE)
 
+    private = models.BooleanField(default=True, null=False, blank=False)
     name = models.CharField(max_length=200, blank=False, null=False)
     description = models.TextField(max_length=2000, blank=True, null=False)
     history = HistoricalRecords()
@@ -78,6 +79,7 @@ class Day(models.Model):
 
     user = models.ForeignKey(User, related_name="days",
                              on_delete=models.CASCADE)
+    private = models.BooleanField(default=True, null=False, blank=False)
     habit = models.ForeignKey(
         Habit, related_name="completed", on_delete=models.CASCADE)
     datetime = models.DateTimeField(auto_now_add=True)
