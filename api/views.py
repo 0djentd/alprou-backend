@@ -9,6 +9,7 @@ from django.http import HttpResponseForbidden
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 from api.permissions import IsObjectAuthorOrReadonlyIfVisible
 
 from core.models import Profile
@@ -84,7 +85,7 @@ class UsersViewset(
     serializer_class = UserSerializer
     # TODO: another permission class to
     # check user.profile.private instead of user.private
-    permission_classes = [IsObjectAuthorOrReadonlyIfVisible]
+    permission_classes = [IsAuthenticated]
 
     @action(methods=["GET"], detail=False)
     def active(self, request):
