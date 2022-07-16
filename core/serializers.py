@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from taggit.serializers import TagListSerializerField, TaggitSerializer
 from .models import Profile
 
 
@@ -14,10 +13,10 @@ class ProfileSerializer(serializers.HyperlinkedModelSerializer):
                             "created", "modified", "user"]
 
 
-class UserSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = User
-        fields = ["id", "username", "profile", "habits", "days"]
-        read_only_fields = ["id", "username",
+        fields = ["id", "url", "username", "profile", "habits", "days"]
+        read_only_fields = ["id", "url", "username",
                             "profile", "habits", "days"]
