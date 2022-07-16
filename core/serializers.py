@@ -5,6 +5,7 @@ from .models import Profile
 
 class ProfileSerializer(serializers.HyperlinkedModelSerializer):
     id = serializers.IntegerField(read_only=True)
+    user = serializers.HyperlinkedIdentityField("user-detail")
 
     class Meta:
         model = Profile
