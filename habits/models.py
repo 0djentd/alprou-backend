@@ -19,6 +19,7 @@ class Habit(TimeStampedModel, models.Model):
     user = models.ForeignKey(User, related_name="habits",
                              on_delete=models.CASCADE)
 
+    active = models.BooleanField(default=True, blank=False, null=False)
     private = models.BooleanField(default=True, null=False, blank=False)
     name = models.CharField(max_length=200, blank=False, null=False)
     description = models.TextField(max_length=2000, blank=True, null=False)
