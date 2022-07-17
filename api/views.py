@@ -35,6 +35,8 @@ class HabitsViewset(VisibleModelAPIViewsetMixin, viewsets.ModelViewSet):
         "days",
         "created",
         "modified",
+        "active",
+        "private",
         "tags",
     ]
 
