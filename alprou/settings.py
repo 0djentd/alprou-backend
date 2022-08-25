@@ -32,7 +32,9 @@ except FileNotFoundError:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1"]
+
+CSRF_TRUSTED_ORIGINS = ["http://localhost:8080"]
 
 
 # Application definition
@@ -56,7 +58,6 @@ INSTALLED_APPS = [
     "taggit",
     "annoying",
     "drf_yasg",
-    "axes",
     "django_filters",
     "crispy_forms",
 ]
@@ -70,7 +71,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "corsheaders.middleware.CorsMiddleware",
-    "axes.middleware.AxesMiddleware",
     "simple_history.middleware.HistoryRequestMiddleware",
 ]
 
@@ -132,10 +132,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTHENTICATION_BACKENDS = [
-    "axes.backends.AxesBackend"] + AUTHENTICATION_BACKENDS
-
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
@@ -193,10 +189,6 @@ REST_FRAMEWORK = {
 
 # django-taggit
 TAGGIT_CASE_INSENSITIVE = True
-
-# django-axes
-# SILENCED_SYSTEM_CHECKS = ['axes.W002']
-AXES_FAILURE_LIMIT = 20
 
 # django-crispy-forms
 CRISPY_TEMPLATE_PACK = "bootstrap"
